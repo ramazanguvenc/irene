@@ -1,0 +1,8 @@
+target/
+*.db
+*.exe
+*.todo
+*.properties
+*.sql
+*.log
+.vscode/
