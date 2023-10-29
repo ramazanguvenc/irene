@@ -112,7 +112,7 @@ public class IreneBot extends TelegramBot{
                             
                             try{
                                 if(args.length == 1){
-                                    this.execute(new SendMessage(update.message().chat().id(), "Please provide link!"));
+                                    this.execute(new SendMessage(update.message().chat().id(), "Please provide link! (/video [url])"));
                             }
                             else{
                                 String link = args[1];
