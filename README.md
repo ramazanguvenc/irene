@@ -1,6 +1,6 @@
 # IreneBot - Telegram Bot
 
-Telegram bot.
+Telegram bot. @ https://t.me/k_irene_bot
 
 ## TODO
 - [ ] Instead of having own scrapers, pull everything from API
