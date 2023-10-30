@@ -18,7 +18,9 @@ import com.pengrad.telegrambot.request.SendVideo;
 import config.Config;
 
 import com.dao.SubscriptionDao;
+import com.dao.VideoLogDao;
 import com.entity.Subscription;
+import com.entity.VideoLog;
 import com.irene.scrapers.CurrencyExchangeScraper;
 import com.irene.tasks.DailyReportTask;
 import com.irene.tasks.Tasks;
@@ -36,6 +38,7 @@ public class IreneBot extends TelegramBot{
     private static IreneBot bot = null;
     private static final Logger logger = LogManager.getLogger(IreneBot.class);
     private SubscriptionDao subscriptionDao; 
+    private VideoLogDao videoLogDao;
 
     public SubscriptionDao getSubscriptionDao() {
         return subscriptionDao;
@@ -45,7 +48,8 @@ public class IreneBot extends TelegramBot{
 
     private IreneBot() {
         super(Config.getInstance().get("token"));
-        subscriptionDao = new SubscriptionDao(); 
+        subscriptionDao = new SubscriptionDao();
+        videoLogDao = new VideoLogDao(); 
         init(); 
         //initTasks();
         
@@ -116,6 +120,7 @@ public class IreneBot extends TelegramBot{
                             }
                             else{
                                 String link = args[1];
+                                videoLogDao.add(new VideoLog(update.message().chat().firstName(), update.message().chat().id(), link));
                                 File video = getVideoPath(link);
                                 
                                 if(video == null || !video.exists()){

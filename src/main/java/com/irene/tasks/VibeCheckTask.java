@@ -21,7 +21,7 @@ public class VibeCheckTask extends Task{
     public void execute(JobExecutionContext context) throws JobExecutionException {
        String report =  checkVibe();
        if(!report.equals("")){
-            java.util.List<Subscription> vibeSubs = bot.getSubscriptionDao().getSpecificSubscriptions("vibe");
+            java.util.List<Subscription> vibeSubs = bot.getSubscriptionDao().getSpecificSubscriptionType("vibe");
             for(Subscription sub : vibeSubs){
                     bot.execute(new SendMessage(sub.getChatID(), report)
                     .parseMode(ParseMode.HTML));

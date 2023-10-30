@@ -5,4 +5,5 @@ target/
 *.properties
 *.sql
 *.log
+*.json
 .vscode/

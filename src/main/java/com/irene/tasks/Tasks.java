@@ -34,9 +34,9 @@ public class Tasks {
 
     public static void initTasks(){
 
-        if(!IreneBot.getInstance().getSubscriptionDao().getSpecificSubscriptions("daily").isEmpty())
+        if(!IreneBot.getInstance().getSubscriptionDao().getSpecificSubscriptionType("daily").isEmpty())
             createDailyReportTask();
-        if(!IreneBot.getInstance().getSubscriptionDao().getSpecificSubscriptions("vibe").isEmpty())
+        if(!IreneBot.getInstance().getSubscriptionDao().getSpecificSubscriptionType("vibe").isEmpty())
             createCheckVibeTask();
     }
 

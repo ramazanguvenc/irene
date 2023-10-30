@@ -20,7 +20,7 @@ public class DailyReportTask extends Task{
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
        String report =  getReport();
-       java.util.List<Subscription> dailySubs = bot.getSubscriptionDao().getSpecificSubscriptions("daily");
+       java.util.List<Subscription> dailySubs = bot.getSubscriptionDao().getSpecificSubscriptionType("daily");
        for(Subscription sub : dailySubs){
             bot.execute(new SendMessage(sub.getChatID(), report)
             .parseMode(ParseMode.HTML));

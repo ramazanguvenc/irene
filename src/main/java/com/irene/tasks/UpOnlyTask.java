@@ -21,7 +21,7 @@ public class UpOnlyTask extends Task {
        //logger.info("executing UpOnlyTask:\n");
        String report =  task();
        if(!report.equals("")){
-            java.util.List<Subscription> vibeSubs = bot.getSubscriptionDao().getSpecificSubscriptions("vibe");
+            java.util.List<Subscription> vibeSubs = bot.getSubscriptionDao().getSpecificSubscriptionType("vibe");
             for(Subscription sub : vibeSubs){
                     bot.execute(new SendMessage(sub.getChatID(), report)
                     .parseMode(ParseMode.HTML));
