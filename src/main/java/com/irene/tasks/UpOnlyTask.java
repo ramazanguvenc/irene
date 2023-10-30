@@ -31,7 +31,7 @@ public class UpOnlyTask extends Task {
 
     }
 
-    private static BigDecimal lastMaxBTCUSDTValue = new BigDecimal(30000); 
+    private static BigDecimal lastMaxBTCUSDTValue = new BigDecimal(34000); 
 
     public static String task(){
         String result = "";

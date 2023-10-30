@@ -1,5 +1,7 @@
 package com.entity;
 
+import com.pengrad.telegrambot.model.Video;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +27,9 @@ public class VideoLog {
     @Column(name = "url")
     private String url;
 
+    public VideoLog(){
+        
+    }
 
     public VideoLog(String name, long chatID, String url) {
         this.name = name;

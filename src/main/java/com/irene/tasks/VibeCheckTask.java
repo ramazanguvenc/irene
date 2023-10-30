@@ -31,7 +31,7 @@ public class VibeCheckTask extends Task{
 
     }
 
-    private static BigDecimal lastMaxUSDTTRYValue = new BigDecimal(0); 
+    private static BigDecimal lastMaxUSDTTRYValue = new BigDecimal(28.27); 
 
     public static String checkVibe(){
         String result = "";

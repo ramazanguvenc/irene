@@ -113,7 +113,7 @@ public class IreneBot extends TelegramBot{
                             this.execute(new SendMessage(update.message().chat().id(), "Help"));
                             break;
                         case "/video":
-                            
+                            logger.info("trying to download video for given url:");
                             try{
                                 if(args.length == 1){
                                     this.execute(new SendMessage(update.message().chat().id(), "Please provide link! (/video [url])"));
@@ -134,7 +134,7 @@ public class IreneBot extends TelegramBot{
                                 }
                                 }
                             }catch(Exception e){
-                                //log later.
+                                logger.error("exception video - > " + e.getMessage());
                             }
                             break;
                         default:
@@ -148,7 +148,6 @@ public class IreneBot extends TelegramBot{
     }
 
     private File getVideoPath(String link) {
-        logger.debug("Getting Video Path!");
         String path = downloadVideo(link);
         if(path == null){
             return null;
@@ -157,33 +156,36 @@ public class IreneBot extends TelegramBot{
     }
 
     private String downloadVideo(String link){
-        String path = Config.getInstance().get("twitter_download_python_path");
+        //String path = Config.getInstance().get("twitter_download_python_path");
+        String path = Config.getInstance().get("twitter_download_go_path");
         String outputPath = Config.getInstance().get("twitter_download_output_path") + generateRandomString(6) + ".mp4";
-        logger.debug("Output Path: " + outputPath);
-        //String param = "";
-        ProcessBuilder Process_Builder = new
-                                         ProcessBuilder("python3",path, link, outputPath)
-                                         .inheritIO();
-
-        Process Demo_Process;
+        
+    
         try {
-            Demo_Process = Process_Builder.start();
-            Demo_Process.waitFor();
-            BufferedReader Buffered_Reader = new BufferedReader(
-                                         new InputStreamReader(
-                                         Demo_Process.getInputStream()
-                                         ));
-            String Output_line = "";
-
-            while ((Output_line = Buffered_Reader.readLine()) != null) {
-                logger.info(Output_line);
+            ProcessBuilder processBuilder = new ProcessBuilder("go", "run", ".", "-url", link, "-destination", outputPath);      
+            processBuilder.directory(new File(path));
+            processBuilder.redirectErrorStream(true);
+            
+            Process process = processBuilder.start();
+            int exitCode = process.waitFor();
+            logger.debug("exitCode: " + exitCode);
+            if(exitCode != 0){
+                try (BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                    String errorLine;
+                    logger.error("Error Details:");
+                    while ((errorLine = errorReader.readLine()) != null) {
+                        logger.error(errorLine);
+                    }
+                }catch(Exception e){
+                    logger.error("exception->" + e.getMessage());
+                }
             }
+
         } catch (IOException | InterruptedException e) {
-            // TODO Auto-generated catch block
-            logger.error("Error while downloading video!");
+            logger.error("Error while downloading video! -> " + e.getMessage());
             return null;
         }
-        logger.debug("Finished downloading video!");
+        logger.info("Finished downloading video!");
         return outputPath;
     }
 

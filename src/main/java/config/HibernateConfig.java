@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import com.entity.Subscription;
+import com.entity.VideoLog;
 
 public class HibernateConfig {
     private static SessionFactory sessionFactory;
@@ -41,6 +42,7 @@ public class HibernateConfig {
                 configuration.setProperties(settings);
 
                 configuration.addAnnotatedClass(Subscription.class);
+                configuration.addAnnotatedClass(VideoLog.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
