@@ -78,31 +78,27 @@ public class IreneBot extends TelegramBot{
                 else{
                     try{
                         String [] args = update.message().text().split(" ");
+                        Long chatId = update.message().chat().id();
                         switch (args[0]) {
                             case "/p":
                                 System.out.println("debug:: " + args[1]);
-
                                 if(args.length <= 1){
-                                    this.execute(new SendMessage(update.message().chat().id(), "example-> /p ETHUSD"));
+                                    _sendMessage(chatId, "example-> /p ETHUSD");
                                     break;
                                 }
                                 else{
                                     if(args[1].length() < 4 && !(args[1].toUpperCase().contains("usd"))){
-                                        args[1] = args[1] + "usdt";
+                                        args[1] = args[1] + "usdt"; //add usdt at the end if user decides to write /p btc etc.
                                     }
-                                    System.out.println("debug2:: " + args[1]);
-                                    this.execute(new SendMessage(update.message().chat().id(), "Price of " + args[1].toUpperCase() + " = " + BinanceScraper.getCoinPrice(args[1].toUpperCase())));
+                                    _sendMessage(chatId, "Price of " + args[1].toUpperCase() + " = " + 
+                                                    BinanceScraper.getCoinPrice(args[1].toUpperCase()));
                                     break;
-                                }
-                                
-                            case "/cur":
-                                this.execute(new SendMessage(update.message().chat().id(), "Currency" + CurrencyExchangeScraper.getCurrency("USD", "EUR").toString()));
-                                break;
+                                }                               
                             case "/sub":
-                                handleSubscriber(update.message().text(), update.message().chat().id());
+                                handleSubscriber(update.message().text(), chatId);
                                 break;
                             case "/start":
-                                this.execute(new SendMessage(update.message().chat().id(), "Hello " + update.message().from().firstName()));
+                                _sendMessage(chatId, "Welcome back!, starting now");
                                 logger.info("Initiating Tasks!");
                                 if(dailySubscriptionFirstTime){
                                     dailySubscriptionFirstTime = false;
@@ -114,7 +110,6 @@ public class IreneBot extends TelegramBot{
                                 this.execute(new SendMessage(update.message().chat().id(), DailyReportTask.getReport())
                                     .parseMode(ParseMode.HTML)
                                 );
-        
                                 break;
 
                             case "/testVibe":
@@ -134,7 +129,7 @@ public class IreneBot extends TelegramBot{
                                 logger.info("trying to download video for given url:");
                                 try{
                                     if(args.length == 1){
-                                        this.execute(new SendMessage(update.message().chat().id(), "Please provide link! (/video [url])"));
+                                        _sendMessage(chatId, "Please provide link! (/video [url])");
                                 }
                                 else{
                                     String link = args[1];
@@ -167,6 +162,12 @@ public class IreneBot extends TelegramBot{
             return UpdatesListener.CONFIRMED_UPDATES_ALL;
         });
     }
+
+    private void _sendMessage(Long chatId, String msg) {
+        this.execute(new SendMessage(chatId, msg));
+    }
+
+
 
     private File getVideoPath(String link) {
         String path = downloadVideo(link);
