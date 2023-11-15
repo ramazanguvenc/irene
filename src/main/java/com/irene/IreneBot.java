@@ -22,7 +22,6 @@ import com.dao.VideoLogDao;
 import com.entity.Subscription;
 import com.entity.VideoLog;
 import com.irene.scrapers.BinanceScraper;
-import com.irene.scrapers.CurrencyExchangeScraper;
 import com.irene.tasks.DailyReportTask;
 import com.irene.tasks.Tasks;
 
@@ -137,7 +136,7 @@ public class IreneBot extends TelegramBot{
                                     File video = getVideoPath(link);
                                     
                                     if(video == null || !video.exists()){
-                                        this.execute(new SendMessage(update.message().chat().id(), "Video couldn't downloaded!"));
+                                        _sendMessage(chatId, "Video couldn't downloaded!");
                                         break;
                                     }
                                     logger.info("Sending Video!");
@@ -145,7 +144,8 @@ public class IreneBot extends TelegramBot{
                                     if(!video.delete()){
                                         logger.info("File couldn't deleted!");
                                     }
-                                    }
+                                    
+                                }
                                 }catch(Exception e){
                                     logger.error("exception video - > " + e.getMessage());
                                 }
@@ -177,12 +177,12 @@ public class IreneBot extends TelegramBot{
         return new File(path);
     }
 
-    private String downloadVideo(String link){
+    public static String downloadVideo(String link){
         //String path = Config.getInstance().get("twitter_download_python_path");
         String path = Config.getInstance().get("twitter_download_go_path");
         String outputPath = Config.getInstance().get("twitter_download_output_path") + generateRandomString(6) + ".mp4";
         
-    
+        
         try {
             ProcessBuilder processBuilder = new ProcessBuilder("go", "run", ".", "-url", link, "-destination", outputPath);      
             processBuilder.directory(new File(path));
@@ -200,7 +200,9 @@ public class IreneBot extends TelegramBot{
                     }
                 }catch(Exception e){
                     logger.error("exception->" + e.getMessage());
+                    return null;
                 }
+                return null;
             }
 
         } catch (IOException | InterruptedException e) {

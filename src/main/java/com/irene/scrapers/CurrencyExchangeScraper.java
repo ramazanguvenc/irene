@@ -12,21 +12,7 @@ public class CurrencyExchangeScraper {
 
     private static int counter = 0;
 
-    public static String getCurrencyString(String from, String to){
-        String url = "https://www.google.com/search?q=" +from + "+" + to;
-        try {
-            Document doc = Jsoup.connect(url).get();
-            String html = doc.selectXpath("/html/body/div[7]/div/div[10]/div/div[2]/div[2]/div/div/div[1]/div/div/div/div/div/div/div/div/div/div[3]/div[1]/div[1]/div[2]/span[1]").toString();
-            String text = html.split(">")[1].split("<")[0];     
     
-            return text;
-
-
-        } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
-
-    }
 
     public static BigDecimal getCurrency(String from, String to){
         String url = "https://www.google.com/search?q=" +from + "+" + to + "&hl=en";
