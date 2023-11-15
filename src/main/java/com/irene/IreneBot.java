@@ -21,6 +21,7 @@ import com.dao.SubscriptionDao;
 import com.dao.VideoLogDao;
 import com.entity.Subscription;
 import com.entity.VideoLog;
+import com.irene.scrapers.BinanceScraper;
 import com.irene.scrapers.CurrencyExchangeScraper;
 import com.irene.tasks.DailyReportTask;
 import com.irene.tasks.Tasks;
@@ -75,70 +76,90 @@ public class IreneBot extends TelegramBot{
 
                 }
                 else{
-                    String [] args = update.message().text().split(" ");
-                    switch (args[0]) {
-                        case "/cur":
-                            this.execute(new SendMessage(update.message().chat().id(), "Currency" + CurrencyExchangeScraper.getCurrency("USD", "EUR").toString()));
-                            break;
-                        case "/sub":
-                            handleSubscriber(update.message().text(), update.message().chat().id());
-                            break;
-                        case "/start":
-                            this.execute(new SendMessage(update.message().chat().id(), "Hello " + update.message().from().firstName()));
-                            logger.info("Initiating Tasks!");
-                            if(dailySubscriptionFirstTime){
-                                dailySubscriptionFirstTime = false;
-                                Tasks.createDailyReportTask();
-                                Tasks.createCheckVibeTask();
-                            }
-                            break;
-                        case "/test":
-                            this.execute(new SendMessage(update.message().chat().id(), DailyReportTask.getReport())
-                                .parseMode(ParseMode.HTML)
-                            );
-    
-                            break;
+                    try{
+                        String [] args = update.message().text().split(" ");
+                        switch (args[0]) {
+                            case "/p":
+                                System.out.println("debug:: " + args[1]);
 
-                        case "/testVibe":
-                            this.execute(new SendMessage(update.message().chat().id(), VibeCheckTask.checkVibe())
-                            .parseMode(ParseMode.HTML)
-                            );
-                            break;
-                        case "/testuponly":
-                            this.execute(new SendMessage(update.message().chat().id(), UpOnlyTask.taskTest(null))
-                            .parseMode(ParseMode.HTML)
-                            );
-                            break;
-                        case "/help":
-                            this.execute(new SendMessage(update.message().chat().id(), "Help"));
-                            break;
-                        case "/video":
-                            logger.info("trying to download video for given url:");
-                            try{
-                                if(args.length == 1){
-                                    this.execute(new SendMessage(update.message().chat().id(), "Please provide link! (/video [url])"));
-                            }
-                            else{
-                                String link = args[1];
-                                videoLogDao.add(new VideoLog(update.message().chat().firstName(), update.message().chat().id(), link));
-                                File video = getVideoPath(link);
-                                
-                                if(video == null || !video.exists()){
-                                    this.execute(new SendMessage(update.message().chat().id(), "Video couldn't downloaded!"));
+                                if(args.length <= 1){
+                                    this.execute(new SendMessage(update.message().chat().id(), "example-> /p ETHUSD"));
                                     break;
                                 }
-                                logger.info("Sending Video!");
-                                this.execute(new SendVideo(update.message().chat().id(), video));
-                                if(!video.delete()){
-                                    logger.info("File couldn't deleted!");
+                                else{
+                                    if(args[1].length() < 4 && !(args[1].toUpperCase().contains("usd"))){
+                                        args[1] = args[1] + "usdt";
+                                    }
+                                    System.out.println("debug2:: " + args[1]);
+                                    this.execute(new SendMessage(update.message().chat().id(), "Price of " + args[1].toUpperCase() + " = " + BinanceScraper.getCoinPrice(args[1].toUpperCase())));
+                                    break;
                                 }
+                                
+                            case "/cur":
+                                this.execute(new SendMessage(update.message().chat().id(), "Currency" + CurrencyExchangeScraper.getCurrency("USD", "EUR").toString()));
+                                break;
+                            case "/sub":
+                                handleSubscriber(update.message().text(), update.message().chat().id());
+                                break;
+                            case "/start":
+                                this.execute(new SendMessage(update.message().chat().id(), "Hello " + update.message().from().firstName()));
+                                logger.info("Initiating Tasks!");
+                                if(dailySubscriptionFirstTime){
+                                    dailySubscriptionFirstTime = false;
+                                    Tasks.createDailyReportTask();
+                                    Tasks.createCheckVibeTask();
                                 }
-                            }catch(Exception e){
-                                logger.error("exception video - > " + e.getMessage());
-                            }
-                            break;
-                        default:
-                            break;
+                                break;
+                            case "/test":
+                                this.execute(new SendMessage(update.message().chat().id(), DailyReportTask.getReport())
+                                    .parseMode(ParseMode.HTML)
+                                );
+        
+                                break;
+
+                            case "/testVibe":
+                                this.execute(new SendMessage(update.message().chat().id(), VibeCheckTask.checkVibe())
+                                .parseMode(ParseMode.HTML)
+                                );
+                                break;
+                            case "/testuponly":
+                                this.execute(new SendMessage(update.message().chat().id(), UpOnlyTask.taskTest(null))
+                                .parseMode(ParseMode.HTML)
+                                );
+                                break;
+                            case "/help":
+                                this.execute(new SendMessage(update.message().chat().id(), "Help"));
+                                break;
+                            case "/video":
+                                logger.info("trying to download video for given url:");
+                                try{
+                                    if(args.length == 1){
+                                        this.execute(new SendMessage(update.message().chat().id(), "Please provide link! (/video [url])"));
+                                }
+                                else{
+                                    String link = args[1];
+                                    videoLogDao.add(new VideoLog(update.message().chat().firstName(), update.message().chat().id(), link));
+                                    File video = getVideoPath(link);
+                                    
+                                    if(video == null || !video.exists()){
+                                        this.execute(new SendMessage(update.message().chat().id(), "Video couldn't downloaded!"));
+                                        break;
+                                    }
+                                    logger.info("Sending Video!");
+                                    this.execute(new SendVideo(update.message().chat().id(), video));
+                                    if(!video.delete()){
+                                        logger.info("File couldn't deleted!");
+                                    }
+                                    }
+                                }catch(Exception e){
+                                    logger.error("exception video - > " + e.getMessage());
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }catch(Exception e){
+                        logger.error("exception general -> " + e.getMessage());
                     }
                 }
                 

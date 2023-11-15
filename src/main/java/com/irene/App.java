@@ -36,11 +36,12 @@ public class App
   
         //testDB();
 
-        //printDB();
+        //printDBire();
        
         //runPythonScript();
 
         Date date = new Date();
+
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         df.setTimeZone(TimeZone.getTimeZone("Europe/Istanbul"));
         logger.debug("Date and time in Istanbul: " + df.format(date));            
