@@ -7,7 +7,9 @@ import org.apache.logging.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import com.entity.KeyValue;
 import com.entity.Subscription;
+import com.irene.IreneBot;
 import com.irene.scrapers.BinanceScraper;
 import com.irene.scrapers.CurrencyExchangeScraper;
 import com.pengrad.telegrambot.model.request.ParseMode;
@@ -31,7 +33,7 @@ public class VibeCheckTask extends Task{
 
     }
 
-    private static BigDecimal lastMaxUSDTTRYValue = new BigDecimal(28.27); 
+    public static BigDecimal lastMaxUSDTTRYValue = new BigDecimal(28.27); 
 
     public static String checkVibe(){
         String result = "";
@@ -40,6 +42,12 @@ public class VibeCheckTask extends Task{
         BigDecimal threshhold = new BigDecimal(0.1);
         if(difference.compareTo(threshhold) > 0){
             lastMaxUSDTTRYValue = currentUSDTTRYValue;
+            try{
+                IreneBot.getInstance().keyValueDao.set(new KeyValue("maxusdtry", lastMaxUSDTTRYValue.toString()));
+            }
+            catch(Exception e){
+                logger.info(e.getMessage());
+            }
             result = "<b>UpOnly continues</b>\n<b>Current USDT-TRY value: </b>$" + currentUSDTTRYValue;
             result = result + "\n<b>Devlet kuru: $</b>" + CurrencyExchangeScraper.getCurrency("USD", "TRY").toString();
         }

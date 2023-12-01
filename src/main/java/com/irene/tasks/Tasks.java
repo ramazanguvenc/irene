@@ -59,6 +59,7 @@ public class Tasks {
             logger.info("creating new vibecheck task!");
             //merged this two task for now. Maybe split it later.
             Tasks.createTask(new VibeCheckTask(), "*/30 * * * * ?");
+            logger.info("creating new uponly task!");
             Tasks.createTask(new UpOnlyTask(), "*/30 * * * * ?");
             didVibeCheckTaskStarted = true;
         }

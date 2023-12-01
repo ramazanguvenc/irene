@@ -57,6 +57,11 @@ public class KeyValue {
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+        return "KeyValue [id=" + id + ", key=" + key + ", value=" + value + "]";
+    }
+
 
 
 }

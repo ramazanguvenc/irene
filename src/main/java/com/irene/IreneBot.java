@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
@@ -41,7 +42,7 @@ public class IreneBot extends TelegramBot{
     private static final Logger logger = LogManager.getLogger(IreneBot.class);
     private SubscriptionDao subscriptionDao; 
     private VideoLogDao videoLogDao;
-    private KeyValueDao keyValueDao;
+    public KeyValueDao keyValueDao;
 
     public SubscriptionDao getSubscriptionDao() {
         return subscriptionDao;
@@ -54,6 +55,14 @@ public class IreneBot extends TelegramBot{
         subscriptionDao = new SubscriptionDao();
         videoLogDao = new VideoLogDao();
         keyValueDao = new KeyValueDao(); 
+        KeyValue btcusdtmax = keyValueDao.get("btcusdtmax");
+        KeyValue usdtrymax = keyValueDao.get("maxusdtry");
+        logger.info("max --> " + btcusdtmax + ", max2 ---> " + usdtrymax);
+        if (btcusdtmax != null && !btcusdtmax.equals(""))
+            UpOnlyTask.lastMaxBTCUSDTValue = new BigDecimal(btcusdtmax.getValue());
+        if (usdtrymax != null && !usdtrymax.equals("")){
+            VibeCheckTask.lastMaxUSDTTRYValue = new BigDecimal(usdtrymax.getValue());
+        } 
         init(); 
         //initTasks();
         

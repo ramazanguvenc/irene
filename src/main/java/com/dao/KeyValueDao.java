@@ -16,7 +16,14 @@ public class KeyValueDao {
         Transaction transaction = null;
         try(Session session = HibernateConfig.getSessionFactory().openSession()){
             transaction = session.beginTransaction();
-            session.persist(keyValue);
+            KeyValue x = get(keyValue.getKey());
+            if(x != null){
+                x.setValue(keyValue.getValue());
+                session.merge(x);
+            }
+            else{
+                session.persist(keyValue);
+            }
             transaction.commit();
         }catch(Exception e){
             if(transaction != null){
@@ -26,13 +33,13 @@ public class KeyValueDao {
         }
     }
 
-    public String get(String key){
+    public KeyValue get(String key){
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             Query<KeyValue> query = session.createQuery(
                 "from KeyValue where `key` = :key",  KeyValue.class
             );
             query.setParameter("key", key);
-            return query.getSingleResult().getValue();
+            return query.getSingleResult();
         }catch(Exception e){
             logger.error(e.getMessage());
             return null;
