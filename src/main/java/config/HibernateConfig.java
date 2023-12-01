@@ -8,6 +8,7 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import com.entity.KeyValue;
 import com.entity.Subscription;
 import com.entity.VideoLog;
 
@@ -43,6 +44,7 @@ public class HibernateConfig {
 
                 configuration.addAnnotatedClass(Subscription.class);
                 configuration.addAnnotatedClass(VideoLog.class);
+                configuration.addAnnotatedClass(KeyValue.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();

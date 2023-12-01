@@ -43,6 +43,9 @@ public class SubscriptionDao {
             );
             query.setParameter("specificType", specificType);
             return query.list();
+        }catch(Exception e){
+            logger.error(e.getMessage());
+            return null;
         }
     }
     

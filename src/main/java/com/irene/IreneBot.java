@@ -17,8 +17,10 @@ import com.pengrad.telegrambot.request.SendVideo;
 
 import config.Config;
 
+import com.dao.KeyValueDao;
 import com.dao.SubscriptionDao;
 import com.dao.VideoLogDao;
+import com.entity.KeyValue;
 import com.entity.Subscription;
 import com.entity.VideoLog;
 import com.irene.scrapers.BinanceScraper;
@@ -39,6 +41,7 @@ public class IreneBot extends TelegramBot{
     private static final Logger logger = LogManager.getLogger(IreneBot.class);
     private SubscriptionDao subscriptionDao; 
     private VideoLogDao videoLogDao;
+    private KeyValueDao keyValueDao;
 
     public SubscriptionDao getSubscriptionDao() {
         return subscriptionDao;
@@ -49,7 +52,8 @@ public class IreneBot extends TelegramBot{
     private IreneBot() {
         super(Config.getInstance().get("token"));
         subscriptionDao = new SubscriptionDao();
-        videoLogDao = new VideoLogDao(); 
+        videoLogDao = new VideoLogDao();
+        keyValueDao = new KeyValueDao(); 
         init(); 
         //initTasks();
         
@@ -120,6 +124,10 @@ public class IreneBot extends TelegramBot{
                                 this.execute(new SendMessage(update.message().chat().id(), UpOnlyTask.taskTest(null))
                                 .parseMode(ParseMode.HTML)
                                 );
+                                break;
+                            case "/testSet":
+                                keyValueDao.set(new KeyValue("test", "123"));
+                                this.execute(new SendMessage(update.message().chat().id(), "set! this -> " + keyValueDao.get("test")));
                                 break;
                             case "/help":
                                 this.execute(new SendMessage(update.message().chat().id(), "Help"));
