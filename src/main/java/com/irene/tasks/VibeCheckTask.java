@@ -51,7 +51,7 @@ public class VibeCheckTask extends Task{
             result = "<b>UpOnly continues</b>\n<b>Current USDT-TRY value: </b>$" + currentUSDTTRYValue;
             result = result + "\n<b>Devlet kuru: $</b>" + CurrencyExchangeScraper.getCurrency("USD", "TRY").toString();
         }
-        logger.info("VibeCheck! --- currentValue: " + currentUSDTTRYValue + " lastMaxValue: " + lastMaxUSDTTRYValue);
+        logger.debug("VibeCheck! --- currentValue: " + currentUSDTTRYValue + " lastMaxValue: " + lastMaxUSDTTRYValue);
         
         return result;
     }
