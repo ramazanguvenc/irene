@@ -1,7 +1,10 @@
 package com.irene.scrapers;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import com.dao.VideoLogDao;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -11,6 +14,7 @@ import java.math.RoundingMode;
 public class CurrencyExchangeScraper {
 
     private static int counter = 0;
+    private static final Logger logger = LogManager.getLogger(CurrencyExchangeScraper.class);
 
     
 
@@ -24,8 +28,7 @@ public class CurrencyExchangeScraper {
             try{
                 text = html.split("equals")[1].split("data-value=\"")[1].split("\"")[0];
             }catch(Exception e){
-                if(from.equalsIgnoreCase("EUR"))
-                    text = html.split("EUR 1 = USD ")[1].split(" ")[0];
+                logger.error(e.getMessage());
             }          
             if(text == null) {
                 if(counter > 10){

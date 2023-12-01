@@ -1,6 +1,7 @@
 package com.irene.scrapers;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +21,10 @@ public class StockExchangeScraper {
             String html = doc.selectXpath("/html/body/header/div/div[1]/div[1]/div/div/div/ul/li[5]/a/span/small[2]").toString();
             String result = html.split(">")[1].split("<")[0];
             logger.debug(result);
-            return result;
+            double exchangeRate = Double.parseDouble(result.replace(",", "."));
+            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+            String formattedExchangeRate = decimalFormat.format(exchangeRate);
+            return formattedExchangeRate;
         } catch (IOException e) {
             logger.error(e.getMessage());
             return null;    

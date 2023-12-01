@@ -37,6 +37,7 @@ public class DailyReportTask extends Task{
         message.append("USD/TRY - " +CurrencyExchangeScraper.getCurrency("USD", "TRY") + " TL\n");
         message.append("USDT/TRY - " +BinanceScraper.getCoinPrice("USDTTRY") + " TL\n");
         message.append("EUR/USD - " + StockExchangeScraper.getEur()+ " USD\n");
+        //message.append("USD/JPY - " + CurrencyExchangeScraper.getCurrency("EUR", "USD") + " USD\n");
         message.append("USD/JPY - " + CurrencyExchangeScraper.getCurrency("USD", "YEN") + " JPY\n");
         message.append("USD/CNY - " + CurrencyExchangeScraper.getCurrency("USD", "CNY") + " CNY\n");
         message.append("USD/CAD - " + CurrencyExchangeScraper.getCurrency("USD", "CAD") + " CAD\n");
@@ -45,6 +46,7 @@ public class DailyReportTask extends Task{
         message.append("<b>Have fun staying poor -> </b>\n");
         message.append("Hard-money - $" + BinanceScraper.getCoinPrice("BTCUSDT") + "\n");
         message.append("Future of France - $" + BinanceScraper.getCoinPrice("ETHUSDT") + "\n");
+        message.append("ex-Con Sam Coin - $" + BinanceScraper.getCoinPrice("SOLUSDT") + "\n");
         message.append("------------------------------\n");
 
         message.append("<b>Treasury -> </b>\n");
