@@ -141,6 +141,11 @@ public class IreneBot extends TelegramBot{
                             case "/help":
                                 this.execute(new SendMessage(update.message().chat().id(), "Help"));
                                 break;
+                            case "/crypto":
+                                 _sendMessage(chatId, "BTC: $" + BinanceScraper.getCoinPrice("BTCUSDT") + 
+                                                      "ETH: $" + BinanceScraper.getCoinPrice("ETHUSDT") + 
+                                                      "SOL: $" + BinanceScraper.getCoinPrice("SOLUSDT"));
+                                break;
                             case "/video":
                                 logger.info("trying to download video for given url:");
                                 try{
