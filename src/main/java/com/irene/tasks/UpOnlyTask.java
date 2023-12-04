@@ -27,7 +27,7 @@ public class UpOnlyTask extends Task {
             for(Subscription sub : vibeSubs){
                     bot.execute(new SendMessage(sub.getChatID(), report)
                     .parseMode(ParseMode.HTML));
-                    logger.info("executing UpOnlyTask:\n" + report);
+                    logger.debug("executing UpOnlyTask:\n" + report);
             }
        }
 

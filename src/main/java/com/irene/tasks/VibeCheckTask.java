@@ -27,7 +27,7 @@ public class VibeCheckTask extends Task{
             for(Subscription sub : vibeSubs){
                     bot.execute(new SendMessage(sub.getChatID(), report)
                     .parseMode(ParseMode.HTML));
-                    logger.info("executing VibeCheckTask:\n" + report);
+                    logger.debug("executing VibeCheckTask:\n" + report);
             }
        }
 
