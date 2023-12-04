@@ -141,13 +141,14 @@ public class IreneBot extends TelegramBot{
                             case "/help":
                                 this.execute(new SendMessage(update.message().chat().id(), "Help"));
                                 break;
+                            //TODO: Make dynamic later on.
                             case "/crypto":
                                  _sendMessage(chatId, "BTC: $" + BinanceScraper.getCoinPrice("BTCUSDT") + 
-                                                      "ETH: $" + BinanceScraper.getCoinPrice("ETHUSDT") + 
-                                                      "SOL: $" + BinanceScraper.getCoinPrice("SOLUSDT") +  
-                                                      "FTM: $" + BinanceScraper.getCoinPrice("FTMUSDT") +
-                                                      "RUNE:$" + BinanceScraper.getCoinPrice("RUNEUSDT") + 
-                                                      "CAKE: $" + BinanceScraper.getCoinPrice("CAKEUSDT"));
+                                                      "\nETH: $" + BinanceScraper.getCoinPrice("ETHUSDT") + 
+                                                      "\nSOL: $" + BinanceScraper.getCoinPrice("SOLUSDT") +  
+                                                      "\nFTM: $" + BinanceScraper.getCoinPrice("FTMUSDT") +
+                                                      "\nRUNE:$" + BinanceScraper.getCoinPrice("RUNEUSDT") + 
+                                                      "\nCAKE: $" + BinanceScraper.getCoinPrice("CAKEUSDT"));
                                 break;
                             case "/video":
                                 logger.info("trying to download video for given url:");
