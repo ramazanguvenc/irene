@@ -15,6 +15,6 @@ Telegram bot. @ https://t.me/k_irene_bot
 
 ## Usage
 
-To start the bot, you can run the following command(assuming you did set up config.properties files and downloaded sunmi project):
+To start the bot, you can run the deploy.sh in your server(assuming you did set up config.properties files and downloaded sunmi project):
 
-`mvn clean && mvn install && mvn exec:java`
+
