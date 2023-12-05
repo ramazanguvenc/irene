@@ -93,7 +93,6 @@ public class IreneBot extends TelegramBot{
                         Long chatId = update.message().chat().id();
                         switch (args[0]) {
                             case "/p":
-                                System.out.println("debug:: " + args[1]);
                                 if(args.length <= 1){
                                     _sendMessage(chatId, "example-> /p ETHUSD");
                                     break;
@@ -118,30 +117,7 @@ public class IreneBot extends TelegramBot{
                                     Tasks.createCheckVibeTask();
                                 }
                                 break;
-                            case "/test":
-                                this.execute(new SendMessage(update.message().chat().id(), DailyReportTask.getReport())
-                                    .parseMode(ParseMode.HTML)
-                                );
-                                break;
-
-                            case "/testVibe":
-                                this.execute(new SendMessage(update.message().chat().id(), VibeCheckTask.checkVibe())
-                                .parseMode(ParseMode.HTML)
-                                );
-                                break;
-                            case "/testuponly":
-                                this.execute(new SendMessage(update.message().chat().id(), UpOnlyTask.taskTest(null))
-                                .parseMode(ParseMode.HTML)
-                                );
-                                break;
-                            case "/testSet":
-                                keyValueDao.set(new KeyValue("test", "123"));
-                                this.execute(new SendMessage(update.message().chat().id(), "set! this -> " + keyValueDao.get("test")));
-                                break;
-                            case "/help":
-                                this.execute(new SendMessage(update.message().chat().id(), "Help"));
-                                break;
-                            //TODO: Make dynamic later on.
+                            //TODO: Make dynamic later on
                             case "/crypto":
                                  _sendMessage(chatId, "BTC: $" + BinanceScraper.getCoinPrice("BTCUSDT") + 
                                                       "\nETH: $" + BinanceScraper.getCoinPrice("ETHUSDT") + 
@@ -149,6 +125,16 @@ public class IreneBot extends TelegramBot{
                                                       "\nFTM: $" + BinanceScraper.getCoinPrice("FTMUSDT") +
                                                       "\nRUNE:$" + BinanceScraper.getCoinPrice("RUNEUSDT") + 
                                                       "\nCAKE: $" + BinanceScraper.getCoinPrice("CAKEUSDT"));
+                                handleCryptoCommand(chatId);
+                                break;
+                            case "/add":
+                                if(args.length <= 1){
+                                    _sendMessage(chatId, "example-> /add eth");
+                                }
+                                else{
+                                    keyValueDao.set(new KeyValue(chatId + "crypto", args[1]));
+                                    _sendMessage(chatId, "Coin: " + args[1] + " added!");
+                                }
                                 break;
                             case "/video":
                                 logger.info("trying to download video for given url:");
@@ -176,6 +162,29 @@ public class IreneBot extends TelegramBot{
                                     logger.error("exception video - > " + e.getMessage());
                                 }
                                 break;
+                            case "/test":
+                                this.execute(new SendMessage(update.message().chat().id(), DailyReportTask.getReport())
+                                    .parseMode(ParseMode.HTML)
+                                );
+                                break;
+
+                            case "/testVibe":
+                                this.execute(new SendMessage(update.message().chat().id(), VibeCheckTask.checkVibe())
+                                .parseMode(ParseMode.HTML)
+                                );
+                                break;
+                            case "/testuponly":
+                                this.execute(new SendMessage(update.message().chat().id(), UpOnlyTask.taskTest(null))
+                                .parseMode(ParseMode.HTML)
+                                );
+                                break;
+                            case "/testSet":
+                                keyValueDao.set(new KeyValue("test", "123"));
+                                this.execute(new SendMessage(update.message().chat().id(), "set! this -> " + keyValueDao.get("test")));
+                                break;
+                            case "/help":
+                                this.execute(new SendMessage(update.message().chat().id(), "Help"));
+                                break;
                             default:
                                 break;
                         }
@@ -188,6 +197,22 @@ public class IreneBot extends TelegramBot{
             return UpdatesListener.CONFIRMED_UPDATES_ALL;
         });
     }
+
+    private void handleCryptoCommand(Long chatId) {
+        KeyValue keyValue = keyValueDao.get(chatId.toString() + "crypto");
+        if(keyValue == null){
+            _sendMessage(chatId, "Please add coins first!");
+            return;
+        }
+        String [] coins = keyValue.getValue().split(",");
+        StringBuilder msg = new StringBuilder();
+        for(String coin : coins){
+            msg.append("Price of " + coin.toUpperCase() + "USDT = $" + BinanceScraper.getCoinPrice(coin.toUpperCase() + "USDT") + "\n");
+        }
+        _sendMessage(chatId, msg.toString());
+    }
+
+
 
     private void _sendMessage(Long chatId, String msg) {
         this.execute(new SendMessage(chatId, msg));
