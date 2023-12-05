@@ -119,12 +119,6 @@ public class IreneBot extends TelegramBot{
                                 break;
                             //TODO: Make dynamic later on
                             case "/crypto":
-                                 _sendMessage(chatId, "BTC: $" + BinanceScraper.getCoinPrice("BTCUSDT") + 
-                                                      "\nETH: $" + BinanceScraper.getCoinPrice("ETHUSDT") + 
-                                                      "\nSOL: $" + BinanceScraper.getCoinPrice("SOLUSDT") +  
-                                                      "\nFTM: $" + BinanceScraper.getCoinPrice("FTMUSDT") +
-                                                      "\nRUNE:$" + BinanceScraper.getCoinPrice("RUNEUSDT") + 
-                                                      "\nCAKE: $" + BinanceScraper.getCoinPrice("CAKEUSDT"));
                                 handleCryptoCommand(chatId);
                                 break;
                             case "/add":
