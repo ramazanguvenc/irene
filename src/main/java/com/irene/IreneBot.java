@@ -126,7 +126,7 @@ public class IreneBot extends TelegramBot{
                                     _sendMessage(chatId, "example-> /add eth");
                                 }
                                 else{
-                                    KeyValue keyValue = keyValueDao.get(chatId.toString());
+                                    KeyValue keyValue = keyValueDao.get(chatId.toString() + "crypto");
                                     if(keyValue == null)
                                         keyValueDao.set(new KeyValue(chatId + "crypto", args[1]));
                                     else{
