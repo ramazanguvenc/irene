@@ -192,7 +192,7 @@ public class IreneBot extends TelegramBot{
         }
         else{
             //check if coin really exist
-            String isExistSTR = BinanceScraper.getCoinPrice(args[1] + "USDT");
+            String isExistSTR = BinanceScraper.getCoinPrice(args[1].toUpperCase() + "USDT");
             if(isExistSTR == null){
                 _sendMessage(chatId, "This coin does not exist!");
                 return;
