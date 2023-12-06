@@ -207,7 +207,7 @@ public class IreneBot extends TelegramBot{
         String [] coins = keyValue.getValue().split(",");
         StringBuilder msg = new StringBuilder();
         for(String coin : coins){
-            msg.append("Price of " + coin.toUpperCase() + "USDT = $" + BinanceScraper.getCoinPrice(coin.toUpperCase() + "USDT") + "\n");
+            msg.append("Price of " + coin.toUpperCase() + " = $" + BinanceScraper.getCoinPrice(coin.toUpperCase() + "USDT") + "\n");
         }
         _sendMessage(chatId, msg.toString());
     }
