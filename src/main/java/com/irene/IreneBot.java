@@ -122,19 +122,7 @@ public class IreneBot extends TelegramBot{
                                 handleCryptoCommand(chatId);
                                 break;
                             case "/add":
-                                if(args.length <= 1){
-                                    _sendMessage(chatId, "example-> /add eth");
-                                }
-                                else{
-                                    KeyValue keyValue = keyValueDao.get(chatId.toString() + "crypto");
-                                    if(keyValue == null)
-                                        keyValueDao.set(new KeyValue(chatId + "crypto", args[1]));
-                                    else{
-                                        keyValue.setValue(keyValue.getValue() + "," + args[1]);
-                                        keyValueDao.set(keyValue);
-                                    }
-                                    _sendMessage(chatId, "Coin: " + args[1] + " added!");
-                                }
+                                handleAdd(args, chatId);
                                 break;
                             case "/video":
                                 logger.info("trying to download video for given url:");
@@ -197,6 +185,31 @@ public class IreneBot extends TelegramBot{
             return UpdatesListener.CONFIRMED_UPDATES_ALL;
         });
     }
+
+    private void handleAdd(String [] args, Long chatId) {
+        if(args.length <= 1){
+            _sendMessage(chatId, "example-> /add eth");
+        }
+        else{
+            //check if coin really exist
+            String isExistSTR = BinanceScraper.getCoinPrice(args[1] + "USDT");
+            if(isExistSTR == null){
+                _sendMessage(chatId, "This coin does not exist!");
+                return;
+            }
+            //else
+            KeyValue keyValue = keyValueDao.get(chatId.toString() + "crypto");
+            if(keyValue == null)
+                keyValueDao.set(new KeyValue(chatId + "crypto", args[1]));
+            else{
+                keyValue.setValue(keyValue.getValue() + "," + args[1]);
+                keyValueDao.set(keyValue);
+            }
+                _sendMessage(chatId, "Coin: " + args[1] + " added!");
+        }
+    }
+
+
 
     private void handleCryptoCommand(Long chatId) {
         KeyValue keyValue = keyValueDao.get(chatId.toString() + "crypto");
