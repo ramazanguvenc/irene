@@ -242,7 +242,6 @@ public class IreneBot extends TelegramBot{
     }
 
     public static String downloadVideo(String link){
-        //String path = Config.getInstance().get("twitter_download_python_path");
         String path = Config.getInstance().get("twitter_download_go_path");
         String outputPath = Config.getInstance().get("twitter_download_output_path") + generateRandomString(6) + ".mp4";
         

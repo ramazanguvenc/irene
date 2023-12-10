@@ -57,35 +57,5 @@ public class App
     
     }
 
-    private static void runPythonScript(){
-        String path = Config.getInstance().get("twitter_download_python_path");
-        logger.debug("path: ", path);
-        String outputPath = Config.getInstance().get("twitter_download_output_path") + IreneBot.generateRandomString(6);
-        String link = "https://twitter.com/catshouldnt/status/1689847527460511744";
-
-        ProcessBuilder Process_Builder = new
-                                         ProcessBuilder("python",path, link, outputPath)
-                                         .inheritIO();
-
-        Process Demo_Process;
-        try {
-            Demo_Process = Process_Builder.start();
-            Demo_Process.waitFor();
-            BufferedReader Buffered_Reader = new BufferedReader(
-                                         new InputStreamReader(
-                                         Demo_Process.getInputStream()
-                                         ));
-            String Output_line = "";
-
-            while ((Output_line = Buffered_Reader.readLine()) != null) {
-                logger.debug(Output_line);
-            }
-        } catch (IOException | InterruptedException e) {
-            logger.error(e.getMessage());
-        }
-        
-        
-        logger.debug("Finished downloading video!");
-        
-    }
+    
 }
