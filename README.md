@@ -14,8 +14,8 @@ Telegram bot: [@k_irene_bot](https://t.me/k_irene_bot)
 ## Installation
 
 1. Clone the repositories:
-   - [irene](git@github.com:ramazanguvenc/irene.git)
-   - [sunmi](git@github.com:ramazanguvenc/sunmi.git)
+   - [irene](https://github.com/ramazanguvenc/irene.git)
+   - [sunmi](https://github.com/ramazanguvenc/sunmi.git)
 
 2. Create a `config.properties` file and define the following variables:
 
