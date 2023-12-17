@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,6 +46,8 @@ public class IreneBot extends TelegramBot{
     private SubscriptionDao subscriptionDao; 
     private VideoLogDao videoLogDao;
     public KeyValueDao keyValueDao;
+    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
+
 
     public SubscriptionDao getSubscriptionDao() {
         return subscriptionDao;
@@ -107,6 +112,17 @@ public class IreneBot extends TelegramBot{
                                 }                               
                             case "/sub":
                                 handleSubscriber(update.message().text(), chatId);
+                                break;
+                            case "/remindme":
+                                if(args.length <= 2){
+                                   _sendMessage(chatId, "example-> /remindme 5 seconds/days/week [your message]");
+                                    break; 
+                                }
+                                else{
+                                    //bug in resolver where if reminder message contains keywords like seconds, minutes etc.
+                                    scheduler.schedule(() -> _sendMessage(chatId, "reminder!"), Integer.valueOf(args[1]), resolveTimeUnit(update.message().text()));
+                                    _sendMessage(chatId, "Your reminder is set!");
+                                }
                                 break;
                             case "/start":
                                 _sendMessage(chatId, "Welcome back!, starting now");
@@ -209,7 +225,19 @@ public class IreneBot extends TelegramBot{
         }
     }
 
-
+    private TimeUnit resolveTimeUnit(String durationString) {
+            if (durationString.toLowerCase().contains("second")) {
+                return TimeUnit.SECONDS;
+            } else if (durationString.toLowerCase().contains("minute")) {
+                return TimeUnit.MINUTES;
+            } else if (durationString.toLowerCase().contains("hour")) {
+                return TimeUnit.HOURS;
+            } else if (durationString.toLowerCase().contains("day")) {
+                return TimeUnit.DAYS;
+            } else{
+                return TimeUnit.SECONDS;
+            }
+        }
 
     private void handleCryptoCommand(Long chatId) {
         KeyValue keyValue = keyValueDao.get(chatId.toString() + "crypto");

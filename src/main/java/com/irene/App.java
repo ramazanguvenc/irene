@@ -16,6 +16,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -25,15 +28,17 @@ import java.util.TimeZone;
 public class App 
 {
 
+    private static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final Logger logger = LogManager.getLogger(App.class);
     public static void main( String[] args )
     {
         Configurator.initialize(null, "log4j2.xml");
 
         logger.info("App started");    
+       
+        //IreneBot bot = IreneBot.getInstance();
+        
 
-        IreneBot bot = IreneBot.getInstance();
-  
         //testDB();
 
         //printDBire();
@@ -45,6 +50,10 @@ public class App
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         df.setTimeZone(TimeZone.getTimeZone("Europe/Istanbul"));
         logger.debug("Date and time in Istanbul: " + df.format(date));            
+    }
+
+    private static void testDelayedMessage(String message, int delayInSeconds) {
+        scheduler.schedule(() -> System.out.println(message), delayInSeconds, TimeUnit.SECONDS);
     }
 
     private static void testDB() {
