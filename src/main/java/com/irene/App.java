@@ -36,7 +36,7 @@ public class App
 
         logger.info("App started");    
        
-        //IreneBot bot = IreneBot.getInstance();
+        IreneBot bot = IreneBot.getInstance();
         
 
         //testDB();
@@ -52,9 +52,7 @@ public class App
         logger.debug("Date and time in Istanbul: " + df.format(date));            
     }
 
-    private static void testDelayedMessage(String message, int delayInSeconds) {
-        scheduler.schedule(() -> System.out.println(message), delayInSeconds, TimeUnit.SECONDS);
-    }
+ 
 
     private static void testDB() {
         SubscriptionDao subscriptionDao = new SubscriptionDao();

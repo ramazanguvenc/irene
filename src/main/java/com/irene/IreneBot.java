@@ -114,13 +114,12 @@ public class IreneBot extends TelegramBot{
                                 handleSubscriber(update.message().text(), chatId);
                                 break;
                             case "/remindme":
-                                if(args.length <= 2){
+                                if(args.length <= 1){
                                    _sendMessage(chatId, "example-> /remindme 5 seconds/days/week [your message]");
                                     break; 
                                 }
                                 else{
-                                    //bug in resolver where if reminder message contains keywords like seconds, minutes etc.
-                                    scheduler.schedule(() -> _sendMessage(chatId, "reminder!"), Integer.valueOf(args[1]), resolveTimeUnit(update.message().text()));
+                                    scheduler.schedule(() -> _sendMessage(chatId, "You're being reminded for = " + args[args.length - 1]), Integer.valueOf(args[1].replaceAll("[\\D]", "")), resolveTimeUnit(update.message().text()));
                                     _sendMessage(chatId, "Your reminder is set!");
                                 }
                                 break;

@@ -20,6 +20,7 @@ public class HibernateConfig {
                 Configuration configuration = new Configuration();
                 Config config = Config.getInstance();
                 String username = config.get("db_username");
+                System.out.println("db username");
                 String password = config.get("db_password");
                 String url = config.get("db_url");
                 // Hibernate settings equivalent to hibernate.cfg.xml's properties
