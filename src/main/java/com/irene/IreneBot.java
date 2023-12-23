@@ -279,7 +279,8 @@ public class IreneBot extends TelegramBot{
         try {
             ProcessBuilder processBuilder = null;
             if(link.contains("youtube"))
-                processBuilder = new ProcessBuilder("yt-dlp","-f", "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b" ,link, "--no-part", "-o", outputPath);
+                //bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b -> for best video quality. Telegram doesn't support >50M
+                processBuilder = new ProcessBuilder("yt-dlp","-f", "b[filesize<50M] / w" ,link, "--no-part", "-o", outputPath);
             else  
                 processBuilder = new ProcessBuilder("go", "run", ".", "-url", link, "-destination", outputPath);      
             processBuilder.directory(new File(path));
