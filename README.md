@@ -18,6 +18,8 @@ Telegram bot: [@k_irene_bot](https://t.me/k_irene_bot)
    - [irene](https://github.com/ramazanguvenc/irene.git)
    - [sunmi](https://github.com/ramazanguvenc/sunmi.git)
 
+2. Install ffmpeg, yt-dlp
+
 2. Create a `config.properties` file and define the following variables:
 
    ```properties
