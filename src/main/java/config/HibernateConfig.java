@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import com.entity.KeyValue;
+import com.entity.Reminder;
 import com.entity.Subscription;
 import com.entity.VideoLog;
 
@@ -20,7 +21,7 @@ public class HibernateConfig {
                 Configuration configuration = new Configuration();
                 Config config = Config.getInstance();
                 String username = config.get("db_username");
-                System.out.println("db username");
+               
                 String password = config.get("db_password");
                 String url = config.get("db_url");
                 // Hibernate settings equivalent to hibernate.cfg.xml's properties
@@ -46,6 +47,7 @@ public class HibernateConfig {
                 configuration.addAnnotatedClass(Subscription.class);
                 configuration.addAnnotatedClass(VideoLog.class);
                 configuration.addAnnotatedClass(KeyValue.class);
+                //configuration.addAnnotatedClass(Reminder.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();

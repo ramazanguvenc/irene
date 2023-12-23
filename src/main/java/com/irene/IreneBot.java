@@ -261,7 +261,10 @@ public class IreneBot extends TelegramBot{
 
 
     private File getVideoPath(String link) {
-        String path = downloadVideo(link);
+        String path = null;
+        
+        path = downloadVideo(link);
+       
         if(path == null){
             return null;
         }
@@ -274,7 +277,11 @@ public class IreneBot extends TelegramBot{
         
         
         try {
-            ProcessBuilder processBuilder = new ProcessBuilder("go", "run", ".", "-url", link, "-destination", outputPath);      
+            ProcessBuilder processBuilder = null;
+            if(link.contains("youtube"))
+                processBuilder = new ProcessBuilder("yt-dlp", link, "--no-part", "-o", outputPath);
+            else  
+                processBuilder = new ProcessBuilder("go", "run", ".", "-url", link, "-destination", outputPath);      
             processBuilder.directory(new File(path));
             processBuilder.redirectErrorStream(true);
             

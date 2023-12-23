@@ -4,12 +4,13 @@ Telegram bot: [@k_irene_bot](https://t.me/k_irene_bot)
 
 ## Commands
 
-- `/p`: Returns the current price (/p btc -- /p eth).
-- `/sub`: Subscribe to daily reports and/or alerts. (/sub daily -- /sub vibe)
+- `/p btc`: Returns the current price (/p btc -- /p eth).
+- `/sub daily`: Subscribe to daily reports and/or alerts. (/sub daily -- /sub vibe)
 - `/test`: Get a report.
-- `/video`: Downloads a video from a given link on Twitter.
+- `/video [url]`: Downloads a video from a given link on Twitter.
 - `/crypto`: Posts prices of added cryptocurrencies.
-- `/add`: Adds a cryptocurrency to see it in the `/crypto` command (/add btc).
+- `/add btc`: Adds a cryptocurrency to see it in the `/crypto` command (/add btc).
+- `/remindme 2hours Good Morning!`: Set reminder.
 
 ## Installation
 
