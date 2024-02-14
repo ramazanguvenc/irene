@@ -136,6 +136,10 @@ public class IreneBot extends TelegramBot{
                             case "/crypto":
                                 handleCryptoCommand(chatId);
                                 break;
+                            case "/chat":
+                                String output = getGeminiOutput(update.message().text());
+                                _sendMessage(chatId, output);
+                                break;
                             case "/add":
                                 handleAdd(args, chatId);
                                 break;
@@ -269,6 +273,33 @@ public class IreneBot extends TelegramBot{
             return null;
         }
         return new File(path);
+    }
+
+    private String getGeminiOutput(String input){
+        String pythonScriptPath = Config.getInstance().get("gemini_path");;
+        String argument = input;
+        String[] command = {"python", pythonScriptPath, argument};
+
+        
+        try {
+            Process process = Runtime.getRuntime().exec(command);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            StringBuilder output = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line).append("\n");
+            }
+
+            String pythonOutput = output.toString();
+            logger.info("Python output: " + pythonOutput);
+            return pythonOutput;
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            logger.error(e.getMessage());
+        }
+        return "error!";
+
+        
     }
 
     public static String downloadVideo(String link){

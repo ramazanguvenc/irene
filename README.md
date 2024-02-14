@@ -10,7 +10,7 @@ Telegram bot: [@k_irene_bot](https://t.me/k_irene_bot)
 - `/video [url]`: Downloads a video from a given link on Twitter.
 - `/crypto`: Posts prices of added cryptocurrencies.
 - `/add btc`: Adds a cryptocurrency to see it in the `/crypto` command (/add btc).
-- `/remindme 2hours Good Morning!`: Set reminder.
+- `/chat [input]`: Runs on Gemini API. Don't abuse it!
 
 ## Installation
 

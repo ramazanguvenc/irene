@@ -1,10 +1,3 @@
-#!/bin/bash
-
-# Specify the name of the screen session to kill
-
-git pull
-
-SCREEN_NAME="IreneBot"
 
 # Find the session ID for the specified screen name
 SESSION_ID=$(screen -ls | grep "$SCREEN_NAME" | awk '{print $1}' | cut -d'.' -f1)
@@ -17,7 +10,4 @@ if [ -n "$SESSION_ID" ]; then
 else
     echo "No screen session found with the name $SCREEN_NAME."
 fi
-
-# Run Maven commands
-mvn clean && mvn install && screen -dmS IreneBot bash -c "mvn exec:java"
 
