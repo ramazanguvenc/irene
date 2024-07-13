@@ -1,0 +1,63 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;33mWARNING[m] 
+[[1;33mWARNING[m] Some problems were encountered while building the effective model for com.irene:irene:jar:1.0-SNAPSHOT
+[[1;33mWARNING[m] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.xerial:sqlite-jdbc:jar -> duplicate declaration of version 3.41.2.2 @ line 94, column 17
+[[1;33mWARNING[m] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: junit:junit:jar -> version 4.13.2 vs 4.11 @ line 100, column 17
+[[1;33mWARNING[m] 
+[[1;33mWARNING[m] It is highly recommended to fix these problems because they threaten the stability of your build.
+[[1;33mWARNING[m] 
+[[1;33mWARNING[m] For this reason, future Maven versions might no longer support building such malformed projects.
+[[1;33mWARNING[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--------------------------< [0;36mcom.irene:irene[0;1m >---------------------------[m
+[[1;34mINFO[m] [1mBuilding irene 1.0-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m>>> [0;32mexec-maven-plugin:1.2.1:java[m [1m(default-cli)[0;1m > [0;1mvalidate[m @ [36mirene[0;1m >>>[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m<<< [0;32mexec-maven-plugin:1.2.1:java[m [1m(default-cli)[0;1m < [0;1mvalidate[m @ [36mirene[0;1m <<<[m
+[[1;34mINFO[m] 
+[[1;33mWARNING[m] The artifact org.hibernate:hibernate-core:jar:6.1.7.Final has been relocated to org.hibernate.orm:hibernate-core:jar:6.1.7.Final
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mexec-maven-plugin:1.2.1:java[m [1m(default-cli)[m @ [36mirene[0;1m ---[m
+DEBUG StatusConsoleListener Apache Log4j Core 2.20 initializing configuration XmlConfiguration[location=/home/dante/irene/log4j2.xml]
+DEBUG StatusConsoleListener PluginManager 'Core' found 130 plugins
+DEBUG StatusConsoleListener PluginManager 'Level' found 0 plugins
+DEBUG StatusConsoleListener PluginManager 'Lookup' found 16 plugins
+DEBUG StatusConsoleListener Building Plugin[name=layout, class=org.apache.logging.log4j.core.layout.PatternLayout].
+DEBUG StatusConsoleListener PluginManager 'TypeConverter' found 26 plugins
+DEBUG StatusConsoleListener PatternLayout$Builder(pattern="%d [%t] %-5level %logger{36} - %msg%n", PatternSelector=null, Configuration(/home/dante/irene/log4j2.xml), Replace=null, charset="null", alwaysWriteExceptions="null", disableAnsi="null", noConsoleNoAnsi="null", header="null", footer="null")
+DEBUG StatusConsoleListener PluginManager 'Converter' found 45 plugins
+DEBUG StatusConsoleListener Building Plugin[name=appender, class=org.apache.logging.log4j.core.appender.FileAppender].
+DEBUG StatusConsoleListener FileAppender$Builder(fileName="app.log", append="null", locking="null", advertise="null", advertiseUri="null", createOnDemand="null", filePermissions="null", fileOwner="null", fileGroup="null", bufferedIo="null", bufferSize="null", immediateFlush="null", ignoreExceptions="null", PatternLayout(%d [%t] %-5level %logger{36} - %msg%n), name="File", Configuration(/home/dante/irene/log4j2.xml), Filter=null, ={})
+DEBUG StatusConsoleListener Starting FileManager app.log
+DEBUG StatusConsoleListener Building Plugin[name=appenders, class=org.apache.logging.log4j.core.config.AppendersPlugin].
+DEBUG StatusConsoleListener createAppenders(={File})
+DEBUG StatusConsoleListener Building Plugin[name=AppenderRef, class=org.apache.logging.log4j.core.config.AppenderRef].
+DEBUG StatusConsoleListener createAppenderRef(ref="File", level="null", Filter=null)
+DEBUG StatusConsoleListener Building Plugin[name=root, class=org.apache.logging.log4j.core.config.LoggerConfig$RootLogger].
+DEBUG StatusConsoleListener LoggerConfig$RootLogger$Builder(additivity="null", level="INFO", levelAndRefs="null", includeLocation="null", ={File}, ={}, Configuration(/home/dante/irene/log4j2.xml), Filter=null)
+DEBUG StatusConsoleListener Building Plugin[name=loggers, class=org.apache.logging.log4j.core.config.LoggersPlugin].
+DEBUG StatusConsoleListener createLoggers(={root})
+DEBUG StatusConsoleListener Configuration XmlConfiguration[location=/home/dante/irene/log4j2.xml] initialized
+DEBUG StatusConsoleListener Starting configuration XmlConfiguration[location=/home/dante/irene/log4j2.xml]
+DEBUG StatusConsoleListener Started configuration XmlConfiguration[location=/home/dante/irene/log4j2.xml] OK.
+DEBUG StatusConsoleListener Shutting down OutputStreamManager SYSTEM_OUT.false.false-2
+DEBUG StatusConsoleListener OutputStream closed
+DEBUG StatusConsoleListener Shut down OutputStreamManager SYSTEM_OUT.false.false-2, all resources released: true
+DEBUG StatusConsoleListener Appender DefaultConsole-2 stopped with status true
+DEBUG StatusConsoleListener Stopped org.apache.logging.log4j.core.config.DefaultConfiguration@6353157c OK
+DEBUG StatusConsoleListener Registering MBean org.apache.logging.log4j2:type=16c8b7bd
+DEBUG StatusConsoleListener Registering MBean org.apache.logging.log4j2:type=16c8b7bd,component=StatusLogger
+DEBUG StatusConsoleListener Registering MBean org.apache.logging.log4j2:type=16c8b7bd,component=ContextSelector
+DEBUG StatusConsoleListener Registering MBean org.apache.logging.log4j2:type=16c8b7bd,component=Loggers,name=
+DEBUG StatusConsoleListener Registering MBean org.apache.logging.log4j2:type=16c8b7bd,component=Appenders,name=File
+DEBUG StatusConsoleListener Reconfiguration complete for context[name=16c8b7bd] at URI /home/dante/irene/log4j2.xml (org.apache.logging.log4j.core.LoggerContext@44e84e0c) with optional ClassLoader: null
+DEBUG StatusConsoleListener Stopping LoggerContext[name=16c8b7bd, org.apache.logging.log4j.core.LoggerContext@44e84e0c]
+DEBUG StatusConsoleListener Stopping LoggerContext[name=16c8b7bd, org.apache.logging.log4j.core.LoggerContext@44e84e0c]...
+DEBUG StatusConsoleListener Shutting down FileManager app.log
+DEBUG StatusConsoleListener OutputStream closed
+DEBUG StatusConsoleListener Shut down FileManager app.log, all resources released: true
+DEBUG StatusConsoleListener Appender File stopped with status true
+DEBUG StatusConsoleListener Stopped XmlConfiguration[location=/home/dante/irene/log4j2.xml] OK
+DEBUG StatusConsoleListener Stopped LoggerContext[name=16c8b7bd, org.apache.logging.log4j.core.LoggerContext@44e84e0c] with status true

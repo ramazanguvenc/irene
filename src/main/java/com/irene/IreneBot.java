@@ -305,7 +305,7 @@ public class IreneBot extends TelegramBot{
     public static String downloadVideo(String link){
         String path = Config.getInstance().get("twitter_download_go_path");
         String outputPath = Config.getInstance().get("twitter_download_output_path") + generateRandomString(6) + ".mp4";
-        
+        logger.info("destination: " + outputPath);
         
         try {
             ProcessBuilder processBuilder = null;
@@ -313,7 +313,7 @@ public class IreneBot extends TelegramBot{
                 //bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b -> for best video quality. Telegram doesn't support >50M
                 processBuilder = new ProcessBuilder("yt-dlp","-f", "b", "-S", "filesize~50M", link, "--no-part", "-o", outputPath);
             else  
-                processBuilder = new ProcessBuilder("go", "run", ".", "-url", link, "-destination", outputPath);      
+                processBuilder = new ProcessBuilder("go", "run", "main.go", "-url", link, "-destination", outputPath);      
             processBuilder.directory(new File(path));
             processBuilder.redirectErrorStream(true);
             

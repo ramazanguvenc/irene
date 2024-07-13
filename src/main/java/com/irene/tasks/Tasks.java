@@ -33,13 +33,16 @@ public class Tasks {
     }
 
     public static void initTasks(){
-
+         
+        //logger.info("initTasks: " + !IreneBot.getInstance().getSubscriptionDao().getSpecificSubscriptionType("daily").isEmpty() + " / " + !IreneBot.getInstance().getSubscriptionDao().getSpecificSubscriptionType("vibe").isEmpty());
+        /* 
         if(!IreneBot.getInstance().getSubscriptionDao().getSpecificSubscriptionType("daily").isEmpty())
             createDailyReportTask();
         if(!IreneBot.getInstance().getSubscriptionDao().getSpecificSubscriptionType("vibe").isEmpty())
             createCheckVibeTask();
-    }
-
+        */
+        }
+        
     
 
     public static void createDailyReportTask(){

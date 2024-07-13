@@ -16,6 +16,7 @@ import com.entity.VideoLog;
 public class HibernateConfig {
     private static SessionFactory sessionFactory;
 
+
     public static SessionFactory getSessionFactory() {
         if(sessionFactory == null){
                 Configuration configuration = new Configuration();
